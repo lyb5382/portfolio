@@ -22,4 +22,15 @@ router.post('/signup', async (req, res) => {
     }
 })
 
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body
+        const user = await User.findOne({ username }).select('+password')
+        if (!user) return res.status(401).json({ message: '없는 user' })
+        if (!user.isActive) return res.status(401).json({ message: '비활성 계정' })
+    } catch (error) {
+
+    }
+})
+
 module.exports = router
