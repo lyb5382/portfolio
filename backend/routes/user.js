@@ -65,4 +65,51 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post('/logout', async (req, res) => {
+    try {
+        const token = req.cookies.token
+        if (!token) {
+            return res.status(400).json({ message: '로그아웃된 계정' })
+        }
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            const user = await User.findById(decoded.userId)
+            if (user) {
+                user.isLoggedIn = false
+                await user.save()
+            }
+        } catch (error) {
+            console.log('토큰 검증 오류', error)
+        }
+        res.clearCookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' })
+        res.json({ message: '로그아웃' })
+
+    } catch (error) {
+        console.log('서버 오류', error)
+        return res.status(500).json({ message: '서버 에러' })
+    }
+})
+
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find().sort({ createdAt: -1 })
+        return res.status(201).json({ message: '전체 유저', users })
+    } catch (error) {
+        return res.status(500).json({ message: '서버 에러' })
+    }
+})
+
+router.delete('/delete/:userId', async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.userId)
+        if (!user) {
+            return res.status(404).json({ message: '없는 계정' })
+        }
+        const users = await User.find().sort({ createdAt: -1 })
+        return res.status(201).json({ message: '삭제 완료', users })
+    } catch (error) {
+        return res.status(500).json({ message: '서버 에러' })
+    }
+})
+
 module.exports = router
