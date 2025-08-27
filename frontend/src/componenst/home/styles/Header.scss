@@ -1,0 +1,17 @@
+header {
+    position: fixed;
+    z-index: 5;
+    width: 100%;
+
+    .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .right-warp{
+            display: flex;
+            nav ul {
+                display: flex;
+            }
+        }
+    }
+}

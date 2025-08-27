@@ -3,9 +3,14 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { default: axios } = require('axios')
-
 const User = require('../models/User')
 const cookieParser = require('cookie-parser')
+
+const COOKIE_NAME = 'token'
+const isProd = process.env.NODE_ENV === 'production'
+const SAME_SITE = isProd ? 'none' : 'lax'
+const SECURE = isProd ? true : false
+const COOKIE_PATH = '/'
 
 router.post('/signup', async (req, res) => {
     try {
@@ -55,7 +60,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ userId: user._id, username: user.username, role: 'admin' },
             process.env.JWT_SECRET,
             { expiresIn: '24h' })
-        res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', maxAge: 24 * 60 * 60 * 1000 })
+        res.cookie(COOKIE_NAME, { httpOnly: true, secure: SECURE, sameSite: SAME_SITE, maxAge: 24 * 60 * 60 * 1000, path: COOKIE_PATH })
         const userWithoutPassword = user.toObject()
         delete userWithoutPassword.password
         return res.status(200).json({ message: '로그인', token, user: userWithoutPassword })
@@ -81,7 +86,7 @@ router.post('/logout', async (req, res) => {
         } catch (error) {
             console.log('토큰 검증 오류', error)
         }
-        res.clearCookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' })
+        res.clearCookie(COOKIE_NAME, { httpOnly: true, secure: SECURE, sameSite: SAME_SITE, path: COOKIE_PATH })
         res.json({ message: '로그아웃' })
 
     } catch (error) {
@@ -109,6 +114,19 @@ router.delete('/delete/:userId', async (req, res) => {
         return res.status(201).json({ message: '삭제 완료', users })
     } catch (error) {
         return res.status(500).json({ message: '서버 에러' })
+    }
+})
+
+router.post('/verify-token', (req, res) => {
+    const token = req.cookies.token
+    if (!token) {
+        return res.status(400).json({ isValid: false, message: '토큰 없음' })
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        return res.status(200).json({ isValid: true, user: decoded })
+    } catch (error) {
+        return res.status(401).json({ isValid: false, message: '유효하지 않은 토큰' })
     }
 })
 

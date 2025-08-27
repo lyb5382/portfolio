@@ -1,0 +1,19 @@
+section {
+    min-height: 100vh;
+    z-index: 0;
+    position: relative;
+
+    &:nth-child(odd) {
+        background-color: lightsteelblue;
+    }
+}
+
+header,
+section {
+    .inner {
+        position: relative;
+        max-width: 160rem;
+        height: 100%;
+        margin: auto;
+    }
+}
