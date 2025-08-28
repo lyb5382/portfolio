@@ -14,14 +14,14 @@ const Home = () => {
         <section id="Hero">
           <Hero />
         </section>
-        <section id="Aboutme">
-          <Aboutme />
+        <section id="Contact">
+          <Contact />
         </section>
         <section id="Work">
           <Work />
         </section>
-        <section id="Contact">
-          <Contact />
+        <section id="Aboutme">
+          <Aboutme />
         </section>
       </main>
       <Footer />

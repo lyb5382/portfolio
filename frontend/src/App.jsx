@@ -8,16 +8,18 @@ import RequierAuth from './routes/RequierAuth'
 import './styles/main.scss'
 import './styles/_themes.scss'
 import './styles/common.scss'
-import { Component } from 'react'
+import { ThemeProvider } from './context/ThemeContext'
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/admin/login' element={<AuthRedirectRoute Component={AdminLogin} />} />
-      <Route path='/admin/post' element={<RequierAuth Component={AdminPost} />} />
-      <Route path='*' element={<Notfound />} />
-    </Routes>
+    <ThemeProvider>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/admin/login' element={<AuthRedirectRoute Component={AdminLogin} />} />
+        <Route path='/admin/post' element={<RequierAuth Component={AdminPost} />} />
+        <Route path='*' element={<Notfound />} />
+      </Routes>
+    </ThemeProvider>
   )
 }
 

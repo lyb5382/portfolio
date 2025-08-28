@@ -2,15 +2,36 @@ header {
     position: fixed;
     z-index: 5;
     width: 100%;
+    transition: all .3s;
+
+    &.scroll {
+        background-color: var(--bg);
+
+        .inner {
+            border-bottom: .1rem solid var(--underline);
+        }
+    }
 
     .inner {
         display: flex;
+        border-bottom: .1rem solid transparent;
         justify-content: space-between;
         align-items: center;
-        .right-warp{
+        padding: 1rem 0;
+
+        h4 {
+            font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+        }
+
+        .right-warp {
             display: flex;
+            align-items: center;
+            gap: 3rem;
+
             nav ul {
+                gap: 2rem;
                 display: flex;
+                font-size: 1.4rem;
             }
         }
     }
