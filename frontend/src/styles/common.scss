@@ -3,15 +3,21 @@ section {
     z-index: 0;
     min-height: 100vh;
     background-color: var(--bg);
-    
+
+    // overflow: hidden;
+    &#Work {
+        height: auto;
+    }
+
 }
 
-header ,section{
+header,
+section {
     .inner {
         position: relative;
         max-width: 160rem;
         height: 100%;
-    // min-height: 100vh;
+        // min-height: 100vh;
 
         margin: auto;
 
@@ -24,39 +30,79 @@ header ,section{
             border-radius: .5rem;
             text-transform: uppercase;
         }
+
         h1.tit {
-            font-size: clamp(6rem ,8vw,16rem);
+            font-size: clamp(6rem, 8vw, 16rem);
             font-weight: 900;
             text-transform: uppercase;
             line-height: .9;
             letter-spacing: -.05rem;
+
             span {
                 display: block;
             }
-            span.star-spin{
+
+            span.star-spin {
                 display: inline-block;
             }
         }
-        p.txt{
+
+        p.txt {
             // 글꼴 정의
-            font-size: clamp(2rem,2vw,2.8rem);
+            font-size: clamp(2rem, 2vw, 2.8rem);
             color: var(--gray600);
         }
+
         h2.sub-tit {
             font-size: 7rem;
             font-weight: 800;
             // text-transform: uppercase;
         }
+
         h4.list-lst {
             font-size: 2rem;
             font-weight: 700;
             border-bottom: .1rem solid var(--gray300);
             line-height: 2;
         }
+
+        h3.sub-tit-2 {
+            font-family: " Noto Sans KR";
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: 1.9rem;
+            font-size: clamp(4rem, 6vw, 9.6rem);
+            text-align: center;
+        }
+
+        h4.lst-tit {
+            font-size: clamp(2rem, 4vw, 5.4rem);
+            font-weight: 400;
+            letter-spacing: -0.02rem;
+        }
+        p.lst-dsc {
+            font-size: clamp(1.2rem, 1.2vw, 1.6rem);
+            font-weight: 200;
+            margin: 1rem 0;
+            letter-spacing: -0.02rem;
+
+        }
+        .tags {
+            display: flex;
+            gap:0.8rem;
+            flex-wrap: wrap;
+            span {
+                display: block;
+                padding: .5rem 1.6rem;
+                background-color: var(--gray100);
+                border-radius: 10rem;
+                color: var(--gray900);
+            }
+        }
     }
 }
 
-span.star-spin{
+span.star-spin {
     // keyframes 여기에 적용
     display: inline-flex;
     justify-content: center;
@@ -66,25 +112,40 @@ span.star-spin{
     transform-origin: 50% 50%;
     animation: rotate 3s infinite alternate;
     position: relative;
+
     i.star {
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         font-style: normal;
         color: var(--primary);
     }
+
     // ✱
 
 }
-.arrow{
+
+.arrow {
     font-size: 3rem;
 }
+
 @keyframes rotate {
-    from{transform: rotate(0deg);}
-    to{transform: rotate(360deg);}
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
+
 @keyframes up {
-    from{transform: translateY(0);}
-    to{transform: translateY(2rem);}
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(2rem);
+    }
 }
