@@ -1,20 +1,27 @@
 import React from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { SiNotion } from 'react-icons/si'
+import footer from '../../utils/footer'
+import './styles/footer.scss'
 
 const Footer = () => {
   return (
-    <div className='inner foot-inner'>
-      <div className="left"></div>
-      <div className="right">
-        <a href="">
-          <FaGithub size={28} />
-        </a>
-        <a href="">
-          <SiNotion size={28} />
-        </a>
+    <footer>
+      <div className='inner'>
+        <div className="left">
+          <h2>{footer.brand.name}</h2>
+          <p>{footer.brand.copy}</p>
+        </div>
+        <div className="right">
+          <a href="">
+            <FaGithub size={28} />
+          </a>
+          <a href="">
+            <SiNotion size={28} />
+          </a>
+        </div>
       </div>
-    </div>
+    </footer>
   )
 }
 

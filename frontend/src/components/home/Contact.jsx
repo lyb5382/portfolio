@@ -57,7 +57,7 @@ const Contact = () => {
             <strong className="label">채널</strong>
             <div className="contact-chips">
               {contact.channels.map((item) => (
-                <a href={item.href} key={item.channels}>{item.label}</a>
+                <a href={item.href} key={item.value}>{item.label}</a>
               ))}
             </div>
           </li>
